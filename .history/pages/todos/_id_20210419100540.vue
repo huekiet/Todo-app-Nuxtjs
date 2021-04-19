@@ -52,10 +52,10 @@
       </form>
 
       <div class="footer">
-        <button @click="goBack()" class="btn btn-secondary btn-sm">
+        <button @click.self="goBack()" class="btn btn-secondary btn-sm">
           Back
         </button>
-        <button @click="saveTodo()" class="btn btn-success btn-sm">
+        <button @click.self="saveTodo()" class="btn btn-success btn-sm">
           Save
         </button>
       </div>
