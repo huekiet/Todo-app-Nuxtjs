@@ -52,10 +52,10 @@
       </form>
 
       <div class="footer">
-        <button @click.self="goBack()" class="btn btn-secondary btn-sm">
+        <button @click="goBack()" class="btn btn-secondary btn-sm">
           Back
         </button>
-        <button @click.self="saveTodo()" class="btn btn-success btn-sm">
+        <button @click="saveTodo()" class="btn btn-success btn-sm">
           Save
         </button>
       </div>
@@ -67,13 +67,13 @@
 export default {
   layout: "todo",
 
+  middleware: ["authen"],
+
   created() {
-    console.log("currentTodo in created():", this.currentTodo);
   },
 
   async asyncData({ params, $axios, redirect, env }) {
     const todoId = params.id;
-    console.log("process:", process);
     if (todoId != "new") {
       try {
         let currentTodo = await $axios.$get(`${env.API_URL}/${todoId}`);

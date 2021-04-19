@@ -46,13 +46,15 @@ export default {
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
         '@nuxtjs/axios',
-        'bootstrap-vue/nuxt'
+        'bootstrap-vue/nuxt',
+        'cookie-universal-nuxt',
     ],
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
 
     env: {
-        API_URL: 'https://6075084c066e7e0017e7aa04.mockapi.io/api/v1/todos'
+        API_URL: 'https://6075084c066e7e0017e7aa04.mockapi.io/api/v1/todos',
+        ACCOUNT_URL: 'https://reqres.in/api'
     },
 }

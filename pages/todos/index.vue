@@ -1,8 +1,13 @@
 <template>
   <div class="main-content">
-    <button @click.self="addNewTodo()" class="btn btn-info float-right btn-sm">
-      Add new
-    </button>
+    <div>
+      <button @click="addNewTodo()" class="btn btn-info float-right btn-sm">
+        Add new
+      </button>
+      <button @click="signOut()" class="btn btn-danger btn-sm">
+        Sign out
+      </button>
+    </div>
     <h1>Tasks</h1>
     <p class="font-italic note">(click name of a todo to toggle complete)</p>
 
@@ -20,7 +25,7 @@
         <div class="desc">
           <div
             class="title"
-            @click.self="toggleComplete(todo)"
+            @click="toggleComplete(todo)"
             :class="{ done: todo.isComplete }"
           >
             {{ todo.name }}
@@ -34,7 +39,7 @@
           <div>
             <span>
               <i
-                @click.self="openDeleteConfirmation(todo)"
+                @click="openDeleteConfirmation(todo)"
                 class="fa fa-times icon-small text-danger ml-0 pl-0 pr-1"
                 aria-hidden="true"
               ></i>
@@ -49,21 +54,21 @@
 
     <div class="filter-button-group mt-1 text-center">
       <button
-        @click.self="clickDone()"
+        @click="clickDone()"
         class="btn btn-sm btn-outline-warning"
         :class="{ active: filterComplete === 'Done' }"
       >
         Done({{ countDoneTodos }})
       </button>
       <button
-        @click.self="clickIncompleted()"
+        @click="clickIncompleted()"
         class="btn btn-sm btn-outline-danger"
         :class="{ active: filterComplete === 'Incompleted' }"
       >
         Incompleted({{ countIncompletedTodos }})
       </button>
       <button
-        @click.self="clickAll()"
+        @click="clickAll()"
         class="btn btn-sm btn-outline-info"
         :class="{ active: filterComplete === 'All' }"
       >
@@ -80,9 +85,13 @@
 import Loading from "~/components/loader";
 export default {
   layout: "todo",
+
   components: {
     Loading
   },
+
+  middleware: ["authen"],
+
   data() {
     return {
       filterComplete: "All",
@@ -174,6 +183,11 @@ export default {
           }
         })
         .catch(err => {});
+    },
+
+    signOut() {
+      this.$cookies.remove("token");
+      this.$router.push("/authen/login");
     }
   }
 };
