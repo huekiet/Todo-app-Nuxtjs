@@ -1,8 +1,13 @@
 <template>
   <div class="main-content">
-    <button @click="addNewTodo()" class="btn btn-info float-right btn-sm">
-      Add new
-    </button>
+    <div>
+      <button @click="addNewTodo()" class="btn btn-info float-right btn-sm">
+        Add new
+      </button>
+      <button @click="signOut()" class="btn btn-danger btn-sm">
+        Sign out
+      </button>
+    </div>
     <h1>Tasks</h1>
     <p class="font-italic note">(click name of a todo to toggle complete)</p>
 
@@ -80,9 +85,13 @@
 import Loading from "~/components/loader";
 export default {
   layout: "todo",
+
   components: {
     Loading
   },
+
+  middleware: ["authen"],
+
   data() {
     return {
       filterComplete: "All",
@@ -174,6 +183,11 @@ export default {
           }
         })
         .catch(err => {});
+    },
+
+    signOut() {
+      this.$cookies.remove("token");
+      this.$router.push("/authen/login");
     }
   }
 };

@@ -67,12 +67,13 @@
 export default {
   layout: "todo",
 
+  middleware: ["authen"],
+
   created() {
   },
 
   async asyncData({ params, $axios, redirect, env }) {
     const todoId = params.id;
-    log("process:", process);
     if (todoId != "new") {
       try {
         let currentTodo = await $axios.$get(`${env.API_URL}/${todoId}`);
